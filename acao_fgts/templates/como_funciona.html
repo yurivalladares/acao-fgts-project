@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+{% include 'partials/_header.html' %}
+
+    <main class="px-3">
+        <h1>Cálculo da Ação Revisional do FGTS.</h1>
+        <p class="lead">Envie seu extrato do FGTS em PDF e nosso algoritmo irá calcular o valor da causa conforme ADI 5090.</p>
+        <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-warning" href="{% url 'cadastro' %}">Criar Conta</a>
+    </main>
+
+{% include 'partials/_footer.html' %}
+</div>
+
+{% endblock %}

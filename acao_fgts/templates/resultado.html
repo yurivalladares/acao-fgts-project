@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    {% include 'partials/_header.html' %}
+
+
+    <main class="px-3">
+        <h1>{{nome_completo}}</h1>
+        <p class="lead">Valor da causa: R$ {{valor_de_causa|floatformat:2}}</p>
+    </main>
+
+{% include 'partials/_footer.html' %}
+
+</div>
+{% endblock %}

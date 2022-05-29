@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cálculo FGTS</title>
+
+    <style>
+        .align-middle {
+        vertical-align: middle !important;
+        }
+
+        .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        }
+
+        .col {
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+        }
+
+        .text-center {
+        text-align: center !important;
+        }
+
+        .text-left {
+          text-align: left !important;
+        }
+
+        .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
+.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
+.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
+.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
+.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
+.col-xl-auto {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .col-6 {
+          -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+
+        .table {
+        border-collapse: collapse !important;
+        }
+
+        .table-sm th,
+        .table-sm td {
+          padding: 0.3rem;
+        }
+
+        .table-light,
+        .table-light > th,
+        .table-light > td {
+          background-color: #fdfdfe;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .w-35 {
+          width: 35% !important;
+        }
+
+        .w-15 {
+          width: 15% !important;
+        }
+
+        .p-3 {
+          padding: 1rem !important;
+        }
+
+        .table-bordered {
+          border: 1px solid #dee2e6;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="text-center">CÁLCULO DO VALOR DA CAUSA DAS AÇÕES QUE REQUEREM A TROCA DA </h1>
+        <h1 class="text-center">TR PELO INPC/IBGE NO RENDIMENTO DA CONTA DO FGTS (ADI 5.090)</h1>
+    </div>
+    <div>&nbsp;</div>
+    <div>
+        <table class="table table-sm table-bordered">
+            <tr>
+                <th class="text-left w-15">Autor:</th>
+                <td class="text-left w-35">{{ calculo_fgts.nome_completo }}</td>
+            </tr>
+            <tr>
+                <th class="text-left w-15">Empregador:</th>
+                <td class="text-left w-35">{{ calculo_fgts.empregador }}</td>
+            </tr>
+            <tr>
+                <th class="text-left w-15">Juros Anual:</th>
+                <td class="text-left w-35">{{ calculo_fgts.juros_anual }}%</td>
+            </tr>
+            <tr>
+                <th class="text-left w-15">Valor da Causa:</th>
+                <td class="text-left w-35">R$ {{calculo_fgts.valor_causa|floatformat:"2g" }}</td>
+            </tr>
+            <tr>
+                <th class="text-left w-15">Calculado em:</th>
+                <td class="text-left w-35">{{calculo_fgts.created_at|date:"SHORT_DATE_FORMAT" }}</td>
+            </tr>
+        </table>
+    </div>
+    <div>&nbsp;</div>
+    <div class="text-center align-middle">
+        <table class="table table-sm table-bordered">
+            <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+                <th>F</th>
+                <th>G</th>
+                <th>H</th>
+                <th>I</th>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>B / C</td>
+                <td>-</td>
+                <td>(1 + E) *<br> (1 + {{ calculo_fgts.juros_anual }}%) - 1</td>
+                <td>D * F</td>
+                <td>G - B</td>
+                <td>H + (F + 1) * I(anterior)</td>
+            </tr>
+        </table>
+        {{ table_json| safe }}
+    </div>
+</body>
+</html>

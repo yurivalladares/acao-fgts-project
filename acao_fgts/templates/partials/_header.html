@@ -1,0 +1,41 @@
+{% load static %}
+
+    <style>
+.navbar .navbar-nav .nav-link { color: #fff; }
+.navbar .navbar-nav .nav-link:hover { color: #fbc531; }
+.navbar .navbar-nav .active > .nav-link { color: #fbc531; }
+    </style>
+    <header class="mb-auto">
+        <nav class="navbar navbar-expand-lg border-bottom border-secondary">
+            <div class="container">
+                <a class="navbar-brand text-white" href="#"><i class="fa fa-balance-scale fa-lg mr-2"></i>Cálculo ADI 5090</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse" aria-controls="nvbCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="nvbCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item pl-1">
+                            <a class="nav-link" href="{% url 'index' %}"><i class="fa fa-th-list fa-fw mr-1"></i>Dashboard</a>
+                        </li>
+                        <li class="nav-item pl-1">
+                            <a class="nav-link" href="{% url 'como_funciona' %}"><i class="fa fa-info-circle fa-fw mr-1"></i>Como Funciona?</a>
+                        </li>
+                        {% if user.is_superuser %}
+                        <li class="nav-item pl-1">
+                            <a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user-plus fa-fw mr-1"></i>Admin</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item pl-1">
+                            <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-in fa-fw mr-1"></i>Sair</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item pl-1">
+                            <a class="nav-link" href="{% url 'como_funciona' %}"><i class="fa fa-info-circle fa-fw mr-1"></i>Como Funciona?</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+	    </nav>
+    </header>

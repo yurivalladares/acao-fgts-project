@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% include 'partials/_header.html' %}
+    <main class="px-3">
+        <div class="container px-5">
+        <h3>Realize seu cadastro</h3>
+        <br>
+        <form action="{% url 'cadastro' %}" method="post">
+            {% csrf_token %}
+            {% include 'partials/_alertas.html' %}
+            <div class="form-floating mb-3 text-dark">
+                <input type="text" class="form-control form-control-lg" id="nome" name="nome" placeholder="Nome Completo">
+                <label for="nome">Nome Completo</label>
+            </div>
+            <div class="form-floating mb-3 text-dark">
+                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="E-mail">
+                <label for="email">E-mail</label>
+            </div>
+            <div class="form-floating mb-3 text-dark">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+                <label for="password">Senha</label>
+            </div>
+            <div class="form-floating mb-3 text-dark">
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir Senha">
+                <label for="password2">Repetir Senha</label>
+            </div>
+            <br>
+        <input type="submit" value="Criar conta" class="btn btn-lg btn-secondary fw-bold border-white bg-white">
+        </form>
+        </div>
+    </main>
+
+{% include 'partials/_footer.html' %}
+
+</div>
+{% endblock %}

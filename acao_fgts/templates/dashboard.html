@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" xmlns="http://www.w3.org/1999/html">
+
+{% include 'partials/_header.html' %}
+<div class='row mb-5'></div>
+    <main class="px-3">
+        <div class="container px-2">
+            <h2>Criar cálculo</h2>
+        <p class="lead">Envie seu extrato do FGTS em .pdf para calcular o valor da causa na Ação Revisional do FGTS.</p>
+        <form action="{% url 'calcular_fgts' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+            <div>
+                {{field|add_class:'form-control form-control-lg'}}
+            </div>
+            <br>
+            {% endfor %}
+        <input type="submit" value="Calcular" class="btn btn-lg btn-warning">
+        </form>
+        </div>
+        <br>
+        <div class="table-responsive">
+        <h2>Histórico de Cálculos</h2>
+    <table class="table table-dark table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="align-middle">Data do Cálculo</th>
+        <th class="align-middle">Nome Completo</th>
+        <th class="align-middle">Empregador</th>
+        <th class="align-middle">Período Calculado</th>
+        <th class="align-middle">Valor da Causa</th>
+        <th class="align-middle">Relatório</th>
+        <th class="align-middle"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if calculo_fgts %}
+        {% for i in calculo_fgts %}
+        <tr>
+            <td class="align-middle">{{i.created_at|date:"SHORT_DATE_FORMAT" }} às {{ i.created_at|time:"H:i" }}</td>
+            <td class="align-middle">{{i.nome_completo}}</td>
+            <td class="align-middle">{{i.empregador}}</td>
+            <td class="align-middle">{{i.inicio_periodo|date:"Y/M"}} - {{i.termino_periodo|date:"Y/M"}}</td>
+            <td class="align-middle">R$ {{i.valor_causa|floatformat:"2g" }}</td>
+            {% if i.pago %}
+                <td class="align-middle">
+                    <form action="{% url 'memoria_pdf' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{i.id}}" name="id">
+                    <input type="submit" value="Baixar" class="btn btn-primary btn-sm">
+                    </form>
+                </td>
+                <td class="align-middle"></td>
+            {% else %}
+                <td class="align-middle"><a href="#" type="button" class="btn btn-success btn-sm">Comprar</a></td>
+                <td class="align-middle">
+                    <form action="{% url 'deletar_calculo' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{i.id}}" name="id">
+                    <input type="submit" value="Excluir" class="btn btn-danger btn-sm">
+                    </form>
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+  </div>
+    </main>
+<div class='row mb-5'></div>
+{% include 'partials/_footer.html' %}
+
+</div>
+{% endblock %}
