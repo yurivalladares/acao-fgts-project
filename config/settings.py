@@ -38,7 +38,6 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     'widget_tweaks',
-    'wkhtmltopdf',
 ]
 
 INSTALLED_APPS = [
@@ -153,12 +152,5 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
-
-# WKHTMLTOPDF CONFIG
-WKHTMLTOPDF_CMD = 'C://Program Files//wkhtmltopdf//bin'
-
-WKHTMLTOPDF_CMD_OPTIONS = {
-'quiet': True,
-}
 
 LOGIN_URL = '/login/'
