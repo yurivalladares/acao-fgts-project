@@ -49,3 +49,6 @@ Necessário Java 8+ instalado para rodar o Tabula-py
 - [ ] Upload de múltiplos extratos em PDF
 - [ ] Compra de relatórios
 - [ ] Melhorar layout da memória de cálculo
+
+## Licença
+[![License: GPL-3.0](https://img.shields.io/github/license/yurivalladares/acao-fgts-project)](https://opensource.org/licenses/MIT)
