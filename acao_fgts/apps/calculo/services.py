@@ -96,28 +96,28 @@ class CalularAcaoFgts:
     def get_memoria_calculo(self):
         return self.gerar_memoria_calculo()
 
-    def gerar_memoria_html(self):
-        df = self.get_memoria_calculo()
-        df1 = df.copy()
-        df1['periodo'] = df1['periodo'].dt.strftime('%Y-%m')
-        df1.rename(inplace=True,
-                   columns={'periodo': 'Período',
-                            'credito_jam': 'Valor do crédito JAM',
-                            'indice_jam': 'Índice JAM',
-                            'base_calculo_jam_creditado': 'Base cálculo do JAM creditado',
-                            'variacao_inpc': 'Variação INPC',
-                            'novo_indice_jam': 'Novo índice JAM',
-                            'novo_credito_jam': 'Novo valor do crédito JAM',
-                            'diferenca_jam_devida': 'Diferença de JAM devida',
-                            'saldo_acumulado': 'Total Corrigido Acumulado'
-                            })
-        df_html = df1.to_html(index=False,
-                              na_rep='0',
-                              justify='center',
-                              classes= 'table table-light table-striped',
-                              decimal=','
-                              ).replace('\n', '')
-        return df_html
+    # def gerar_memoria_html(self):
+    #     df = self.get_memoria_calculo()
+    #     df1 = df.copy()
+    #     df1['periodo'] = df1['periodo'].dt.strftime('%Y-%m')
+    #     df1.rename(inplace=True,
+    #                columns={'periodo': 'Período',
+    #                         'credito_jam': 'Valor do crédito JAM',
+    #                         'indice_jam': 'Índice JAM',
+    #                         'base_calculo_jam_creditado': 'Base cálculo do JAM creditado',
+    #                         'variacao_inpc': 'Variação INPC',
+    #                         'novo_indice_jam': 'Novo índice JAM',
+    #                         'novo_credito_jam': 'Novo valor do crédito JAM',
+    #                         'diferenca_jam_devida': 'Diferença de JAM devida',
+    #                         'saldo_acumulado': 'Total Corrigido Acumulado'
+    #                         })
+    #     df_html = df1.to_html(index=False,
+    #                           na_rep='0',
+    #                           justify='center',
+    #                           classes= 'table table-light table-striped',
+    #                           decimal=','
+    #                           ).replace('\n', '')
+    #     return df_html
 
     def gerar_memoria_json(self):
         df = self.get_memoria_calculo()
@@ -168,7 +168,6 @@ class CalularAcaoFgts:
             user=self.user,
             inicio_periodo=self.extrair_inicio_periodo(),
             termino_periodo=self.extrair_termino_periodo(),
-            df_html=self.gerar_memoria_html(),
             df_json=self.gerar_memoria_json(),
         )
 

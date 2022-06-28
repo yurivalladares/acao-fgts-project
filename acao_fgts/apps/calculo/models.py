@@ -21,7 +21,6 @@ class CalculoFgts(BaseModel):
     termino_periodo = models.DateField(editable=False, blank=True)
     hide = models.BooleanField(default=False)
     pago = models.BooleanField(default=True)
-    df_html = models.TextField(max_length=200000, default="", blank=True)
     df_json = models.JSONField(blank=True)
 
     @property

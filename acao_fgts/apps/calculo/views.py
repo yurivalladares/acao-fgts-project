@@ -1,3 +1,4 @@
+import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -59,6 +60,15 @@ def memoria_calculo(request):
     obj = CalculoFgts.objects.get(pk=request.POST['id'])
     table = json2html.convert(json=obj.df_json, clubbing=True,
                               table_attributes="id=\"table_json\" class=\"table table-light table-striped\"")
+
+    # df = pd.read_json(obj.df_json)
+    # df_html = df.to_html(index=False,
+    #                           na_rep='0',
+    #                           justify='center',
+    #                           classes= 'table table-light table-striped',
+    #                           decimal=','
+    #                           ).replace('\n', '')
+
     contexto = {
         'calculo_fgts': obj,
         'table_json': table
