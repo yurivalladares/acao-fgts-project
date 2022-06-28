@@ -3,7 +3,7 @@
 Cálculo automático do valor da causa do FGTS conforme ADI 5090
 
 ## Contexto
-A forma como é feito um cálculo jurídico hoje em dia é predominantemente manual. Advogados e Contadores muitas vezes utilizam planilhas de excel ou mesmo terceirizam o trabalho operacional para Calculistas. 
+A forma como é feito um cálculo jurídico hoje em dia é predominantemente manual. Advogados e contadores muitas vezes utilizam planilhas de excel ou mesmo terceirizam o trabalho operacional. 
 
 ## Objetivo
 
