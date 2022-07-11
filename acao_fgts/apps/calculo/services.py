@@ -1,5 +1,6 @@
 import tabula
 import pandas as pd
+import numpy as np
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from acao_fgts.apps.calculo.models import CalculoFgts
@@ -66,8 +67,8 @@ class CalularAcaoFgts:
 
         df_causa = pd.concat([self.ler_indice(), self.tratar_extrato()], join='outer', axis=1)
         df_causa.fillna(0, inplace=True)
+        df_causa = df_causa.loc[self.extrair_inicio_periodo():]
         df_causa.reset_index(inplace=True)
-
         if self.extrair_juros_anual() == 3:
             df_causa.rename(inplace=True, columns={'indice_jam_3': 'indice_jam'})
             df_causa['base_calculo_jam_creditado'] = df_causa['credito_jam'] / df_causa['indice_jam']
@@ -82,6 +83,7 @@ class CalularAcaoFgts:
         df_causa.sort_index(axis=1, inplace=True)
         df_causa['saldo_acumulado'] = self.calcular_saldo_acumulado(df_causa['diferenca_jam_devida'],
                                                                     df_causa['novo_indice_jam'])
+        df_causa.replace([np.inf, -np.inf], 0, inplace=True)
         df_causa = df_causa[['periodo',
                              'credito_jam',
                              'indice_jam',
@@ -133,7 +135,11 @@ class CalularAcaoFgts:
         return df_json
 
     def extrair_valor_causa(self):
-        return self.get_memoria_calculo().iloc[-1, -1].round(2)
+        # return self.get_memoria_calculo().iloc[-1, -1].round(2)
+        for i in reversed(range(-200, 0)):
+            if self.get_memoria_calculo().iloc[i, -1].round(2) > 0:
+                return self.get_memoria_calculo().iloc[i, -1].round(2)
+        return 0
 
     def criar_calculo_fgts(self):
 
