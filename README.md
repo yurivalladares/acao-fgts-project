@@ -11,6 +11,8 @@ O objetivo do projeto é automatizar o cálculo do valor de causa do FGTS confor
 
 O cálculo jurídico é realizado conforme instruções disponiblizadas pela [Justiça Federal do Rio Grande do Sul](https://www2.jfrs.jus.br/fgts-net-2/).
 
+![Dashboard Ação FGTS](https://github.com/yurivalladares/acao-fgts-project/blob/main/acao-fgts-painel.png?raw=true)
+
 ## Deploy com Heroku
 
 https://acao-fgts.herokuapp.com
@@ -32,7 +34,7 @@ Tratamento dos dados e cálculo do valor de causa
 Gerar relatório em PDF
 - [XHTML2PDF](https://github.com/xhtml2pdf/xhtml2pdf)
 
-## Como rodar localmente
+## Como executar localmente
 
 Siga esse passo-a-passo para rodar a aplicação localmente:
 
